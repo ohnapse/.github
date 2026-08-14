@@ -8,6 +8,25 @@ It is built for developers who want an agent that can act on a real codebase wit
 handing it the keys to the machine.
 
 ```sh
+brew install ohnapse/tap/ohnapse
+```
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/ohnapse/public/main/install.sh | sh
+```
+
+Both commands put `ohnapse` and `oh` on `PATH`. After the Homebrew install,
+`brew upgrade ohnapse` works by short name. On Windows:
+
+```powershell
+irm https://raw.githubusercontent.com/ohnapse/public/main/install.ps1 | iex
+```
+
+Releases and the installer live in
+[`ohnapse/public`](https://github.com/ohnapse/public); the formula lives in
+[`ohnapse/homebrew-tap`](https://github.com/ohnapse/homebrew-tap).
+
+```sh
 export ANTHROPIC_API_KEY=sk-...
 cd your-project
 oh init
@@ -39,8 +58,8 @@ sub-agents that run concurrently under a shared budget, each confined to a decla
 slice of the tree, so two of them can never fight over the same file.
 
 **One small binary.** Written in Go on the standard library, cgo-free, with a
-dependency footprint of exactly one external package. It cross-compiles to Linux,
-macOS, and Windows and starts instantly.
+dependency footprint of exactly one external package. It runs on Linux, macOS, and
+Windows and starts instantly.
 
 ## Configuration
 
@@ -56,9 +75,8 @@ editor that supports it:
 
 ## Availability
 
-**Alpha**, and moving quickly. Everything described above works today, in private
-testing. Public builds via Homebrew and GitHub Releases, and a hosted subscription that
-replaces per-vendor API keys with a single account, are on the way.
+**Alpha**, and moving quickly. Everything described above works today. A hosted
+subscription that replaces per-vendor API keys with a single account is on the way.
 
 ---
 
