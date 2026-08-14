@@ -1,12 +1,65 @@
-## Hi there 👋
+# ohnapse
 
-<!--
+**A terminal-native AI coding agent that stays autonomous but strictly bounded.**
 
-**Here are some ideas to get you started:**
+`ohnapse` reads, searches, and edits files in your project from the command line,
+running its agent loop inside a kernel sandbox behind a permission model you control.
+It is built for developers who want an agent that can act on a real codebase without
+handing it the keys to the machine.
 
-🙋‍♀️ A short introduction - what is your organization all about?
-🌈 Contribution guidelines - how can the community get involved?
-👩‍💻 Useful resources - where can the community find your docs? Is there anything else the community should know?
-🍿 Fun facts - what does your team eat for breakfast?
-🧙 Remember, you can do mighty things with the power of [Markdown](https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
--->
+```sh
+export ANTHROPIC_API_KEY=sk-...
+cd your-project
+oh init
+oh "add a doc comment to the Parse function in parser.go"
+```
+
+Run `oh` with no arguments for the interactive chat UI: a live transcript of the
+conversation and its tool activity, a prompt composer, and a running token-cost meter.
+
+## Why it's different
+
+**Bounded by the kernel, not by good intentions.** File access is enforced by Landlock
+on Linux and Seatbelt on macOS, so a tool call cannot reach outside your workspace even
+if the model tries. Above that sits a three-tier permission model — `read-only`,
+`auto-safe`, `full-auto` — with per-tool allow/deny/ask rules on top.
+
+**Bring your own account, any account.** Anthropic, OpenAI, Azure OpenAI, and Google
+Gemini are supported today. Configuration names an *account*, not a wire format, so
+switching models on the same account is a one-line edit and nothing else changes.
+Any OpenAI- or Anthropic-compatible endpoint works too.
+
+**It measures instead of assuming.** Not every "compatible" endpoint really is — some
+silently swallow tool calls and answer with an apology instead. `oh doctor` probes your
+configured endpoint for streaming, tool calls, parallel tool calls, extended thinking,
+and image input, then reports exactly what it found and caches the result.
+
+**Parallel work, non-overlapping scopes.** Larger jobs are delegated to focused
+sub-agents that run concurrently under a shared budget, each confined to a declared
+slice of the tree, so two of them can never fight over the same file.
+
+**One small binary.** Written in Go on the standard library, cgo-free, with a
+dependency footprint of exactly one external package. It cross-compiles to Linux,
+macOS, and Windows and starts instantly.
+
+## Configuration
+
+Settings live in a git-ignored `.ohnapse/settings.json` in your project, created by
+`oh init`. Reference the published JSON Schema for validation and autocompletion in any
+editor that supports it:
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/ohnapse/public/main/schemas/ohnapse-settings.schema.json"
+}
+```
+
+## Availability
+
+**Alpha**, and moving quickly. Everything described above works today, in private
+testing. Public builds via Homebrew and GitHub Releases, and a hosted subscription that
+replaces per-vendor API keys with a single account, are on the way.
+
+---
+
+Built by [Kolosys](https://github.com/kolosys).
