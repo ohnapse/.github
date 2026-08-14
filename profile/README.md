@@ -57,8 +57,7 @@ and image input, then reports exactly what it found and caches the result.
 sub-agents that run concurrently under a shared budget, each confined to a declared
 slice of the tree, so two of them can never fight over the same file.
 
-**One small binary.** Written in Go on the standard library, cgo-free, with a
-dependency footprint of exactly one external package. It runs on Linux, macOS, and
+**One small binary.** Written in Go, cgo-free. It runs on Linux, macOS, and
 Windows and starts instantly.
 
 ## Configuration
