@@ -77,6 +77,9 @@ editor that supports it:
 **Alpha**, and moving quickly. Everything described above works today. A hosted
 subscription that replaces per-vendor API keys with a single account is on the way.
 
+If you are running it on a real repo, [file a bug or a session report](https://github.com/ohnapse/public/issues/new/choose).
+Do not paste API keys.
+
 ---
 
 Built by [Kolosys](https://github.com/kolosys).
