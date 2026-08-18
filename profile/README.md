@@ -62,9 +62,14 @@ Windows and starts instantly.
 
 ## Configuration
 
-Settings live in a git-ignored `.ohnapse/settings.json` in your project, created by
-`oh init`. Reference the published JSON Schema for validation and autocompletion in any
-editor that supports it:
+Settings are the same JSON shape at every layer. Put personal defaults in
+`~/.ohnapse/settings.json`, shared policy in a committed `ohnapse.json` (no API keys),
+and a per-checkout overlay in git-ignored `.ohnapse/settings.json`. Later files win
+except `permission.deny`, which can only add rules. `oh init` creates the overlay with
+`$schema` only, so it does not pin a model or a permission tier over team policy.
+
+Reference the published JSON Schema for validation and autocompletion in any editor
+that supports it:
 
 ```json
 {
